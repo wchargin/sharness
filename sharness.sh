@@ -19,6 +19,7 @@
 
 # Public: Current version of Sharness.
 export SHARNESS_VERSION="0.2.2"
+export SHARNESS_TEST_EXTENSION="t"
 
 ORIGINAL_TERM=$TERM
 
@@ -569,7 +570,7 @@ test_done() {
 	if test -z "$HARNESS_ACTIVE"; then
 		test_results_dir="$TEST_DIRECTORY/test-results"
 		mkdir -p "$test_results_dir"
-		test_results_path="$test_results_dir/${0%.sh}-$$.counts"
+		test_results_path="$test_results_dir/${0%.$SHARNESS_TEST_EXTENSION}.$$.counts"
 
 		cat >>"$test_results_path" <<-EOF
 		total $test_count
@@ -646,7 +647,7 @@ mkdir -p "$test_dir" || exit 1
 cd -P "$test_dir" || exit 1
 
 this_test=${0##*/}
-this_test=${this_test%%-*}
+this_test=${this_test%.$SHARNESS_TEST_EXTENSION}
 for skp in $SKIP_TESTS; do
 	case "$this_test" in
 	$skp)
