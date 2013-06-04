@@ -162,6 +162,6 @@ Contact
 [API documentation]: https://github.com/mlafeldt/sharness/blob/master/API.md
 [COPYING]: https://github.com/mlafeldt/sharness/blob/master/COPYING
 [Git]: http://git-scm.com/
-[README.git]: https://github.com/mlafeldt/sharness/blob/master/README.git
+[README.git]: https://github.com/git/git/blob/v1.8.1/t/README
 [Test Anything Protocol]: http://testanything.org/
 [prove(1)]: http://linux.die.net/man/1/prove
