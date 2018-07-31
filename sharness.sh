@@ -456,8 +456,9 @@ test_expect_success() {
 		else
 			test_failure_ "$@"
 		fi
+	else
+		echo >&3 ""
 	fi
-	echo >&3 ""
 }
 
 # Public: Run test commands and expect them to fail. Used to demonstrate a known
@@ -495,8 +496,9 @@ test_expect_failure() {
 		else
 			test_known_broken_failure_ "$1"
 		fi
+	else
+		echo >&3 ""
 	fi
-	echo >&3 ""
 }
 
 # Public: Run test commands and expect anything from them. Used when a
@@ -533,8 +535,9 @@ test_expect_unstable() {
 		else
 			test_known_broken_failure_ "$1"
 		fi
+	else
+		echo >&3 ""
 	fi
-	echo >&3 ""
 }
 
 # Public: Run command and ensure that it fails in a controlled way.
