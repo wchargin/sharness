@@ -357,6 +357,35 @@ test_expect_success 'We detect broken && chains' "
 	EOF
 "
 
+test_expect_success 'test_dir_is_empty behaves even in pathological cases' "
+	run_sub_test_lib_test \
+		dir-empty 'behavior of test_dir_is_empty' <<-\\EOF &&
+	test_expect_success 'should pass with actually empty directory' '
+		mkdir empty_dir &&
+		test_dir_is_empty empty_dir
+	'
+	test_expect_success 'should fail with a normal filename' '
+		mkdir nonempty_dir &&
+		touch nonempty_dir/some_file &&
+		test_must_fail test_dir_is_empty nonempty_dir
+	'
+	test_expect_success 'should fail with dot-newline-dot filename' '
+		mkdir pathological_dir &&
+		printf \"pathological_dir/.\\\\n.\\\\0\" | xargs -0 touch &&
+		test_must_fail test_dir_is_empty pathological_dir
+	'
+	test_done
+	EOF
+	check_sub_test_lib_test dir-empty <<-\\EOF
+	> ok 1 - should pass with actually empty directory
+	> ok 2 - should fail with a normal filename
+	> ok 3 - should fail with dot-newline-dot filename
+	> # passed all 3 test(s)
+	> 1..3
+	EOF
+"
+
+
 test_expect_success 'tests can be run from an alternate directory' '
 	# Act as if we have an installation of sharness in current dir:
 	ln -sf $SHARNESS_TEST_SRCDIR/sharness.sh . &&
